@@ -157,5 +157,13 @@ def form_sample():
         return "Форма отправлена"
 
 
+@app.route('/results/<name>/<int:level>/<float:rating>')
+def results(name, level, rating):
+    param = {"name": name,
+             "level": level,
+             "rating": rating}
+    return render_template("result_of_selection.html", **param)
+
+
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1')
