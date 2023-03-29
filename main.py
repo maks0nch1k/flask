@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 
 
 app = Flask(__name__)
@@ -163,6 +163,18 @@ def results(name, level, rating):
              "level": level,
              "rating": rating}
     return render_template("result_of_selection.html", **param)
+
+
+@app.route("/load_photo", methods=["POST", "GET"])
+def image():
+    if request.method == "GET":
+        return render_template("loading_of_file.html")
+
+    if request.method == "POST":
+        file = request.files["file"]
+        with open("static/img/task.jpg", "wb") as file_img:
+            file_img.write(file.read())
+        return render_template("loading_of_file.html")
 
 
 if __name__ == '__main__':
